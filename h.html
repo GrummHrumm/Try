@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="external.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id = "p_f_c" class="all">
+
+  <div class="split_1 right">
+      <button id="player1"  class="centered" >Deal</button>
+       <input type="text" value="3" id = "p1" class ='inp1' >
+  </div>
+  <div class="split_1 left">
+      <button id="player2"  class="centered" >Deal</button>
+      <input type="text" value="3" id = "p2" class ='inp2'>
+  </div>
+  </div>
+
+
+
+<<script type="text/javascript">
+  var arr = [];
+  var player1 = document.getElementById('player1');
+  var player2 = document.getElementById('player2');
+  var p1;
+  var p2;
+  let r=0;
+
+
+
+    window.onload = function() {
+    for(let i = 0; i<6; i++)
+    {
+      arr[i] = (document.createElement("img"));
+      setTimeout(CardPos, 0, arr, i, i);
+    }
+    };
+
+    player2.onclick = function(event) {
+    var tagDiv = event.currentTarget.parentElement;
+    var Coords = tagDiv.getBoundingClientRect();
+    p2 =  Number(document.getElementById("p2").value);
+    let  f =0;
+/*
+    for( let i = 0; i<p2; i++)
+    {
+    setTimeout(func, 100 * (i*2), arr,i);
+    }
+    */
+
+    for( let i = arr.length; i >= arr.length - p2 +1; i--)
+    {
+    setTimeout(func, 100 * (r*2), arr, r,25,75,f);
+    r++; f++;
+    }
+    }
+
+
+
+
+
+    player1.onclick = function(event) {
+    var tagDiv = event.currentTarget.parentElement;
+    var Coords = tagDiv.getBoundingClientRect();
+
+    p1 =  Number(document.getElementById("p1").value);
+    let  f =0;
+    for( let i = arr.length; i >= arr.length - p1 +1; i--)
+    {
+    setTimeout(func, 100 * (r*2), arr, r,75,75,f);
+    r++; f++;
+    }
+    }
+
+    function CardPos(arr, u, i) {
+      arr[u].style.cssText=`position: absolute;\
+      top: ${20+(i*3)}%;\
+      left: ${50+(i*2)}%;\
+      z-index: ${10+i};\
+      transform: translate(-50%, -50%);\
+      text-align: center;\
+      width:108px;\
+      height:168px;\
+      transition: all 1s;\
+      `;
+      arr[u].src = `cards/c_${randomInteger(1, 14)}.jpg`;
+      document.getElementById("p_f_c").appendChild(arr[u]);
+      }
+
+    function randomInteger(min, max) {
+        var rand = min + Math.random() * (max + 1 - min);
+        rand = Math.floor(rand);
+        return rand;
+      }
+
+      function func(g,i,d,b,f) {
+        g[i].style.left = `${d + (f*1.5)}%`;//75
+        g[i].style.top = `${b +(f*1.5)}%`;
+        g[g.length] = (document.createElement("img"));
+        setTimeout(CardPos, 100 * (f*2), g, g.length-1, i);
+      }
+
+</script>
+
+
+</body>
+</html>
